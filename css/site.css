@@ -25,6 +25,7 @@ body {
     color: var(--text);
     line-height: 1.6;
     overflow-x: hidden;
+    padding-top: calc(var(--header-height) + 12px);
 }
 
 p,
@@ -57,11 +58,11 @@ img {
 .site-header {
     background: linear-gradient(120deg, var(--primary), var(--primary-dark));
     color: var(--light);
-    position: sticky;
-    position: -webkit-sticky;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    width: 100%;
     z-index: 1000;
     box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
@@ -265,6 +266,20 @@ main {
     height: min(82vh, 900px);
     min-height: 420px;
     overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .slides {
+        height: min(64vh, 560px);
+        min-height: 320px;
+    }
+
+    .slide-overlay {
+        width: calc(100% - 2rem);
+        left: 1rem;
+        right: 1rem;
+        padding: 0.85rem 1rem;
+    }
 }
 
 .hero {
@@ -1472,6 +1487,16 @@ textarea {
     backdrop-filter: blur(6px);
 }
 
+.slide-overlay h2 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    margin-bottom: 0.35rem;
+}
+
+.slide-overlay p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.6;
+}
+
 .slide-kicker {
     text-transform: uppercase;
     letter-spacing: 0.3em;
@@ -1677,7 +1702,7 @@ textarea {
 
 @media (max-width: 900px) {
     :root {
-        --header-height: 138px;
+        --header-height: 148px;
     }
 
     .header-content {
@@ -1716,6 +1741,27 @@ textarea {
         height: 64px;
     }
 
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 1.25rem;
+        min-height: auto;
+    }
+
+    .hero .media-overlay {
+        min-height: 220px;
+    }
+
+    .content-section {
+        margin: 1.1rem 0;
+        padding: 1.25rem 1rem;
+    }
+
+    .section-header {
+        text-align: center;
+        align-items: center;
+    }
+
     .logo-verse .verse-text {
         flex-basis: 100%;
     }
@@ -1734,15 +1780,20 @@ textarea {
     }
 
     .menu {
-        position: absolute;
+        position: fixed;
+        top: var(--header-height);
         left: 0;
         right: 0;
-        top: 100%;
+        width: 100%;
         flex-direction: column;
         background: var(--primary);
-        padding: 1rem 1.25rem;
+        padding: 1rem 1.25rem 1.35rem;
         display: none;
         gap: 0.35rem;
+        box-shadow: 0 12px 22px rgba(0,0,0,0.28);
+        margin-top: 0;
+        max-height: calc(100vh - var(--header-height));
+        overflow-y: auto;
     }
 
     .menu.show {
@@ -1798,6 +1849,10 @@ textarea {
 }
 
 @media (max-width: 600px) {
+    :root {
+        --header-height: 184px;
+    }
+
     .header-content {
         padding: 0.6rem 0.9rem;
         align-items: center;
